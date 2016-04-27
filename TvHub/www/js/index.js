@@ -16,10 +16,14 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+var name = "Devin";
+
 var app = {
     // Application Constructor
     initialize: function() {
         this.bindEvents();
+        updateClock();
+        updateGreeting();
     },
     // Bind Event Listeners
     //
@@ -37,13 +41,39 @@ var app = {
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
-
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
-
         console.log('Received Event: ' + id);
     }
+};
+
+function updateClock() {
+    var now = new Date(), // current date
+        months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']; // you get the idea
+        time = now.getHours() + ':' + ((now.getMinutes()<10?'0':'') + now.getMinutes()); // again, you get the idea
+
+        // a cleaner way than string concatenation
+        date = [months[now.getMonth()],
+                now.getDate(),                
+                now.getFullYear()].join(' ');
+
+    // set the content of the element with the ID time to the formatted string
+    document.getElementById('currentTime').innerHTML = time;
+    document.getElementById('currentDate').innerHTML = date;
+
+    // call this function again in 1000ms
+    setTimeout(updateClock, 1000);
+};
+
+function updateGreeting(){
+    var now = new Date();
+
+    if(now.getHours() <= 12){
+        document.getElementById('greeting').innerHTML = "Good morning " + name;
+    }
+    else if((now.getHours() > 12) && (now.getHours() <= 18)){
+        document.getElementById('greeting').innerHTML = "Good afternoon " + name;
+    }
+    else{
+        document.getElementById('greeting').innerHTML = "Good evening " + name;
+    }
+    setTimeout(updateGreeting, 3600000);
 };
