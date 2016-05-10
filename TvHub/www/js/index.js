@@ -22,8 +22,7 @@ var app = {
     // Application Constructor
     initialize: function() {
         this.bindEvents();
-        updateClock();
-        updateGreeting();
+        generateApp();
     },
     // Bind Event Listeners
     //
@@ -43,6 +42,10 @@ var app = {
     receivedEvent: function(id) {
         console.log('Received Event: ' + id);
     }
+};
+
+var clock = {
+    //Attributes for clock object will go here
 };
 
 function updateClock() {
@@ -65,15 +68,61 @@ function updateClock() {
 
 function updateGreeting(){
     var now = new Date();
+    var greeting = document.getElementById('greeting');
 
     if(now.getHours() <= 12){
-        document.getElementById('greeting').innerHTML = "Good morning " + name;
+        greeting.innerHTML = "Good morning " + name;
     }
     else if((now.getHours() > 12) && (now.getHours() <= 18)){
-        document.getElementById('greeting').innerHTML = "Good afternoon " + name;
+        greeting.innerHTML = "Good afternoon " + name;
     }
     else{
-        document.getElementById('greeting').innerHTML = "Good evening " + name;
+        greeting.innerHTML = "Good evening " + name;
     }
     setTimeout(updateGreeting, 3600000);
 };
+
+function restMode(){
+    //This will remove everything from the screen except for the time and maybe the date. Then fade to black.
+};
+
+function showWeather(){
+    var action = document.getElementById('actionContainer');
+    action.innerHTML = "";
+
+    //creating the elements to be put into the action container
+    var icon = document.createElement("p");
+    var temperature = document.createElement("p");
+    var hilo = document.createElement("p");
+
+    //populating the elements
+    icon.innerHTML = "IT GON RAIN";
+    temperature.innerHTML = "55";
+    hilo.innerHTML = "75/35";
+
+    //Adding elements to the action container
+    action.appendChild(icon);
+    action.appendChild(temperature);
+    action.appendChild(hilo);
+};
+
+function generateApp(){
+    /*
+    //Creating basic elements
+    var actionContainer = document.createElement("div");
+    var time = document.createElement("p");
+    var date = document.createElement("p");
+    actionContainer.id = "actionContainer";
+    time.id = "currentTime";
+    date.id = "currentDate";
+
+    //populating the application
+    //var app = document.getElementByClass('app');
+    document.app.appendChild(time);
+    document.app.appendChild(actionContainer);
+    document.app.appendChild(date);
+    */
+    updateClock();
+    updateGreeting();
+    //showWeather();
+}
